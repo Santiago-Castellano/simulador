@@ -4,9 +4,12 @@
 #include "simlib.c"
 #include <stdio.h>
 #include <stdlib.h> 
+#include "clases.cc"
 
 int main()
 {
+	Vehiculo v = Vehiculo(1, 1.1, 2.2);
+
 	int dias = 5;
 	int horas = 24;
 	int corte = dias * horas * 60;
