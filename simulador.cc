@@ -6,15 +6,16 @@
 #include <stdlib.h> 
 #include "clases.cc"
 
+MayorCantidadAutos politicaActual = MayorCantidadAutos();
+
 int main()
 {
-	Vehiculo v = Vehiculo(1, 1.1, 2.2);
-
 	int dias = 5;
 	int horas = 24;
 	int corte = dias * horas * 60;
 	init_simlib();
-
+	Semaforo semaforo = Semaforo(1,2);
+	int resultado = politicaActual.CalcularPuntaje(semaforo);
 	while (sim_time < corte)
 	{
 
