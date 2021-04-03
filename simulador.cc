@@ -5,8 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #include "clases.cc"
+#include "constantes.h"
 
-MayorCantidadAutos politicaActual = MayorCantidadAutos();
+MayorCantidadAutos POLITICA = MayorCantidadAutos();
+Semaforo SEMAFOROS [CANTIDAD_SEMAFOROS] = { Semaforo(1,1), Semaforo(2,1), Semaforo(3,1), Semaforo(4,1) };
 
 int main()
 {
@@ -14,8 +16,7 @@ int main()
 	int horas = 24;
 	int corte = dias * horas * 60;
 	init_simlib();
-	Semaforo semaforo = Semaforo(1,2);
-	int resultado = politicaActual.CalcularPuntaje(semaforo);
+	
 	while (sim_time < corte)
 	{
 

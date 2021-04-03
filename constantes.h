@@ -1,0 +1,1 @@
+#define CANTIDAD_SEMAFOROS  4
