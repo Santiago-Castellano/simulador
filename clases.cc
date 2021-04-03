@@ -2,15 +2,17 @@ class Semaforo {
     public:
         int Id;
         int Prioridad;
+        int Cola;
         int TiempoInactivo;
         int CantidadVehiculos;
 
-        Semaforo(int id, int prioridad){
+        Semaforo(int id, int prioridad, int cola){
             Id = id;
             Prioridad = prioridad;
+            Cola = cola;
             TiempoInactivo = 0;
             CantidadVehiculos = 0;
-        }
+        };
 };
 
 class Politica {
@@ -42,7 +44,7 @@ class MayorCantidadAutos : public Politica{
 
             return SemaforoActivar;
         };
-        
+
     private:
         int CalcularPuntaje(Semaforo semaforo) {
             return semaforo.CantidadVehiculos;
