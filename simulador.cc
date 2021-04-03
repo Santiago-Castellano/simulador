@@ -98,7 +98,8 @@ void FinDia(void)
 void ActivarSemaforo(void)
 {
 	Semaforo activar = POLITICA.SeleccionarSemaforo(SEMAFOROS, CANTIDAD_SEMAFOROS);
-	transfer[1] = ObtenerIndice(activar);
+	int indice_activar = ObtenerIndice(activar); 
+	transfer[1] = indice_activar;
 	list_file(FIRST, activar.Id);
 	for (int i = 0; i < CANTIDAD_DE_AUTOS_POR_ACTIVACION; i++)
 	{
@@ -107,6 +108,7 @@ void ActivarSemaforo(void)
 		
 		list_remove(FIRST, activar.Cola);
 		sampst(sim_time - transfer[1], activar.Cola);
+		SEMAFOROS[indice_activar].CantidadVehiculos -= 1;
 	}
 	
 	
@@ -117,31 +119,31 @@ void ActivarSemaforo(void)
 	list_file(INCREASING, LIST_EVENT);
 }
 
+
 void DesactivarSemaforo(void)
 {
 	int indice = transfer[3];
-	Semaforo semaforo = SEMAFOROS[indice];
-	list_remove(FIRST, semaforo.Id);
+	list_remove(FIRST, SEMAFOROS[indice].Id);
 	
 	transfer[1] = sim_time + 1;
 	transfer[2] = ACTIVAR_SEMAFORO;
 	list_file(INCREASING, LIST_EVENT);
 }
 
+
 void ArriboVehiculo(void)
 {
 	int indice_semaforo = transfer[3];
-	Semaforo semaforo = SEMAFOROS[indice_semaforo];
 	
-	if (list_size[semaforo.Id] == 1)
+	if (list_size[SEMAFOROS[indice_semaforo].Id] == 1)
 	{
-		sampst(0.0, semaforo.Id);
+		sampst(0.0, SEMAFOROS[indice_semaforo].Id);
 	}
 	else
 	{
 		transfer[1] = sim_time;
-		list_file(LAST, semaforo.Cola);
-		semaforo.CantidadVehiculos += 1;
+		list_file(LAST, SEMAFOROS[indice_semaforo].Cola);
+		SEMAFOROS[indice_semaforo].CantidadVehiculos += 1;
 	}
 	GenerarArriboVehiculo();
 }
@@ -158,14 +160,14 @@ void GenerarArriboVehiculo(void)
 
 double FrecuenciaVehiculos(void)
 {
-	return uniform(1, 30, VEHICULOS);
+	return uniform(1, 5, VEHICULOS);
 }
 
 
 int AsignarSemaforo(void)
 {
 	int prob = int(lcgrand(0) * 100);
-	int semaforo = int((prob / CANTIDAD_SEMAFOROS) / 100);
+	int semaforo = int((prob / CANTIDAD_SEMAFOROS) / 10);
 
 	return semaforo;
 } 
