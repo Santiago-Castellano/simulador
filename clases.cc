@@ -1,18 +1,3 @@
-class Vehiculo {
-    public:
-        double Arribo;
-        double Partida;
-        
-        Vehiculo(double _arribo, double _partida) {
-            Arribo = _arribo;
-            Partida = _partida;
-        }
-
-        double Duracion() {
-            return Partida - Arribo;
-        }
-};
-
 class Semaforo {
     public:
         int Id;
